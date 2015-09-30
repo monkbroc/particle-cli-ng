@@ -6,8 +6,6 @@ import (
 	"net/url"
 	"os"
 	"time"
-
-	"github.com/dickeyxxx/speakeasy"
 )
 
 var loginTopic = &Topic{
@@ -71,12 +69,6 @@ func getString(prompt string) string {
 		ExitIfError(err)
 	}
 	return s
-}
-
-func getPassword() string {
-	password, err := speakeasy.Ask("Password (typing will be hidden): ")
-	ExitIfError(err)
-	return password
 }
 
 func v2login(email, password, secondFactor string) (string, error) {

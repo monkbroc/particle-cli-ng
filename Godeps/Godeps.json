@@ -12,10 +12,6 @@
 			"Rev": "3acf1b3de25d89c7688c63bb45f6b07f566555ec"
 		},
 		{
-			"ImportPath": "github.com/dickeyxxx/speakeasy",
-			"Rev": "7a13a299270d38d736b2b218d68081374e33f608"
-		},
-		{
 			"ImportPath": "github.com/franela/goreq",
 			"Rev": "72c51a544272e007ab3da4f7d9ac959b7af7af03"
 		},
