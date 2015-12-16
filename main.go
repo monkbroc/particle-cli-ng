@@ -33,6 +33,7 @@ var BuiltinPlugins = []string{
 
 func init() {
 	cli.Topics = TopicSet{
+		analyticsTopic,
 		authTopic,
 		commandsTopic,
 		debugTopic,
@@ -45,6 +46,7 @@ func init() {
 		whichTopic,
 	}
 	cli.Commands = CommandSet{
+		analyticsSubmitCmd,
 		authLoginCmd,
 		authTokenCmd,
 		commandsListCmd,
