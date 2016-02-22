@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/lunixbochs/vtclean"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/lunixbochs/vtclean"
 	"io"
 	"os"
 )

@@ -4,9 +4,9 @@ import (
 	"flag"
 	"os"
 
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/jtolds/gls"
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/smartystreets/assertions"
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/smartystreets/goconvey/convey/reporting"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/jtolds/gls"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/smartystreets/assertions"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/smartystreets/goconvey/convey/reporting"
 )
 
 func init() {

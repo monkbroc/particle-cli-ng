@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/franela/goreq"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/franela/goreq"
 )
 
 func init() {

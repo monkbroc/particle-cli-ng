@@ -2,7 +2,7 @@
 // functions in the assertions package.
 package should
 
-import "github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/smartystreets/assertions"
+import "github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/smartystreets/assertions"
 
 var (
 	Equal          = assertions.ShouldEqual

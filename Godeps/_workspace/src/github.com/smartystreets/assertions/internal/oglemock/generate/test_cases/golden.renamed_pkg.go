@@ -11,8 +11,8 @@ import (
 	runtime "runtime"
 	unsafe "unsafe"
 
-	oglemock "github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/smartystreets/assertions/internal/oglemock"
-	tony "github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/smartystreets/assertions/internal/oglemock/generate/test_cases/renamed_pkg"
+	oglemock "github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/smartystreets/assertions/internal/oglemock"
+	tony "github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/smartystreets/assertions/internal/oglemock/generate/test_cases/renamed_pkg"
 )
 
 type MockSomeInterface interface {

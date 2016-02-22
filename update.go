@@ -12,10 +12,10 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/dickeyxxx/golock"
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/franela/goreq"
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/kardianos/osext"
-	"github.com/heroku/heroku-cli/gode"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/dickeyxxx/golock"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/franela/goreq"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/kardianos/osext"
+	"github.com/monkbroc/particle-cli-ng/gode"
 )
 
 var updateTopic = &Topic{

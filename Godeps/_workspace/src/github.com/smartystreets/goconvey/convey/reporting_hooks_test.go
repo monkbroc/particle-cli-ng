@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/smartystreets/goconvey/convey/reporting"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/smartystreets/goconvey/convey/reporting"
 )
 
 func TestSingleScopeReported(t *testing.T) {

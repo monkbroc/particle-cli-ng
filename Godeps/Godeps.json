@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/heroku/heroku-cli",
+	"ImportPath": "github.com/monkbroc/particle-cli-ng",
 	"GoVersion": "go1.5",
 	"Deps": [
 		{

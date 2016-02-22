@@ -10,8 +10,8 @@ import (
 	"runtime/debug"
 	"strings"
 
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/lunixbochs/vtclean"
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/golang.org/x/crypto/ssh/terminal"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/lunixbochs/vtclean"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/golang.org/x/crypto/ssh/terminal"
 )
 
 // Stdout is used to mock stdout for testing
@@ -171,7 +171,7 @@ func LogIfError(e error) {
 }
 
 func isDebugging() bool {
-	debug := strings.ToUpper(os.Getenv("HEROKU_DEBUG"))
+	debug := strings.ToUpper(os.Getenv("PARTICLE_DEBUG"))
 	if debug == "TRUE" || debug == "1" {
 		return true
 	}

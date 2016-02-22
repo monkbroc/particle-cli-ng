@@ -20,8 +20,8 @@ import (
 	"math"
 	"unsafe"
 
-	. "github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/smartystreets/assertions/internal/oglematchers"
-	. "github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/smartystreets/assertions/internal/ogletest"
+	. "github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/smartystreets/assertions/internal/oglematchers"
+	. "github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/smartystreets/assertions/internal/ogletest"
 )
 
 var someInt int = -17

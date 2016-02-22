@@ -7,8 +7,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/dickeyxxx/speakeasy"
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/toqueteos/webbrowser"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/dickeyxxx/speakeasy"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/toqueteos/webbrowser"
 )
 
 var loginTopic = &Topic{
@@ -130,7 +130,7 @@ func getPassword(prompt string) string {
 		if err.Error() == "The handle is invalid." {
 			Errln(`Login is currently incompatible with git bash/cygwin
 In the meantime, login via cmd.exe
-https://github.com/heroku/heroku-cli/issues/84`)
+https://github.com/monkbroc/particle-cli-ng/issues/84`)
 			Exit(1)
 		} else {
 			ExitIfError(err, false)

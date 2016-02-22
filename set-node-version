@@ -7,7 +7,7 @@ let https  = require('https');
 let knox   = require('knox').createClient({
   key:    process.env.HEROKU_RELEASE_ACCESS,
   secret: process.env.HEROKU_RELEASE_SECRET,
-  bucket: 'heroku-cli',
+  bucket: 'particle-cli',
   region: 'us-west-2',
 });
 

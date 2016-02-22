@@ -12,8 +12,8 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/dickeyxxx/golock"
-	"github.com/heroku/heroku-cli/gode"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/dickeyxxx/golock"
+	"github.com/monkbroc/particle-cli-ng/gode"
 )
 
 // Plugin represents a javascript plugin
@@ -358,12 +358,12 @@ func SetupBuiltinPlugins() {
 	if len(pluginNames) == 0 {
 		return
 	}
-	Err("heroku-cli: Installing core plugins...")
+	Err("particle-cli: Installing core plugins...")
 	if err := installPlugins(pluginNames...); err != nil {
 		// retry once
 		PrintError(gode.RemovePackages(pluginNames...), true)
 		PrintError(gode.ClearCache(), true)
-		Err("\rheroku-cli: Installing core plugins (retrying)...")
+		Err("\rparticle-cli: Installing core plugins (retrying)...")
 		ExitIfError(installPlugins(pluginNames...), true)
 	}
 	Errln(" done")

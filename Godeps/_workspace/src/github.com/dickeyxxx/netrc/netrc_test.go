@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/heroku/heroku-cli/Godeps/_workspace/src/github.com/dickeyxxx/netrc"
+	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/dickeyxxx/netrc"
 	. "gopkg.in/check.v1"
 )
 
