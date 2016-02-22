@@ -10,19 +10,19 @@ import (
 // HomeDir is the user's home directory
 var HomeDir = homeDir()
 
-// AppDir is the .heroku path
+// AppDir is the .particle path
 func AppDir() string {
 	if runtime.GOOS == "windows" {
 		dir := os.Getenv("LOCALAPPDATA")
 		if dir != "" {
-			return filepath.Join(dir, "heroku")
+			return filepath.Join(dir, "particle")
 		}
 	}
 	dir := os.Getenv("XDG_DATA_HOME")
 	if dir != "" {
-		return filepath.Join(dir, "heroku")
+		return filepath.Join(dir, "particle")
 	}
-	return filepath.Join(HomeDir, ".heroku")
+	return filepath.Join(HomeDir, ".particle")
 }
 
 func homeDir() string {

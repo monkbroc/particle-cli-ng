@@ -36,7 +36,7 @@ func SetupNode() {
 }
 
 func setupNode() {
-	Err("heroku-cli: Adding dependencies...")
+	Err("particle-cli: Adding dependencies...")
 	PrintError(gode.Setup(), true)
 	Errln(" done")
 }

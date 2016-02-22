@@ -26,15 +26,15 @@ var cli = &Cli{}
 
 // BuiltinPlugins are the core plugins that will be autoinstalled
 var BuiltinPlugins = []string{
-	"heroku-apps",
-	"heroku-cli-addons",
-	"heroku-fork",
-	"heroku-git",
-	"heroku-local",
-	"heroku-pipelines",
-	"heroku-run",
-	"heroku-spaces",
-	"heroku-status",
+	//"heroku-apps",
+	//"heroku-cli-addons",
+	//"heroku-fork",
+	//"heroku-git",
+	//"heroku-local",
+	//"heroku-pipelines",
+	//"heroku-run",
+	//"heroku-spaces",
+	//"heroku-status",
 }
 
 func init() {
@@ -72,7 +72,7 @@ func init() {
 		whoamiCmd,
 	}
 	rollbar.Platform = "client"
-	rollbar.Token = "b40226d5e8a743cf963ca320f7be17bd"
+	rollbar.Token = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 	rollbar.Environment = Channel
 	rollbar.ErrorWriter = nil
 }
