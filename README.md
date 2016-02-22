@@ -1,9 +1,11 @@
-![](https://d4yt8xl9b7in.cloudfront.net/assets/home/logotype-heroku.png) Next Gen Heroku CLI
+Next Gen Particle CLI
 ==========
 
-[![Circle CI](https://circleci.com/gh/heroku/heroku-cli/tree/master.svg?style=svg)](https://circleci.com/gh/heroku/heroku-cli/tree/master)
-[<img src="https://ci.appveyor.com/api/projects/status/github/heroku/heroku-cli?svg=true&branch=master" alt="Appveyor" height="18"/>](https://ci.appveyor.com/project/Heroku/heroku-cli?branch=master)
-[![MIT License](https://img.shields.io/github/license/heroku/heroku-cli.svg)](https://github.com/heroku/heroku-cli/blob/master/LICENSE)
+[Based on the Heroku CLI](https://github.com/heroku/heroku-cli)
+
+**This is not an official tool by Particle. This is in alpha phase**
+
+*The rest of the README has not been updated for Particle yet*
 
 The Heroku CLI is used to manage Heroku apps from the command line.
 

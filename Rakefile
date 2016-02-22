@@ -2,7 +2,7 @@ require 'digest'
 require 'aws-sdk'
 require 'json'
 
-BUCKET_NAME = 'heroku-cli'
+BUCKET_NAME = 'particle-cli'
 
 TARGETS = [
   {os: 'windows', arch: '386'},
@@ -20,11 +20,11 @@ TARGETS = [
 VERSION = `./version`.chomp
 dirty = `git status 2> /dev/null | tail -n1`.chomp != 'nothing to commit, working directory clean'
 CHANNEL = dirty ? 'dirty' : `git rev-parse --abbrev-ref HEAD`.chomp
-CLOUDFRONT_HOST = 'cli-assets.heroku.com'
-LABEL = "heroku-cli/#{VERSION} (#{CHANNEL})"
+CLOUDFRONT_HOST = 'cli-assets.particle.io'
+LABEL = "particle-cli/#{VERSION} (#{CHANNEL})"
 REVISION=`git log -n 1 --pretty=format:"%H"`
 
-desc "build heroku-cli"
+desc "build particle-cli"
 task :build do
   puts "Building #{LABEL}..."
   FileUtils.mkdir_p 'dist'
@@ -34,7 +34,7 @@ task :build do
   end
 end
 
-desc "release heroku-cli"
+desc "release particle-cli"
 task :release => :build do
   abort 'branch is dirty' if CHANNEL == 'dirty'
   abort "#{CHANNEL} not a channel branch (dev/beta/master)" unless %w(dev beta master).include?(CHANNEL)
@@ -42,7 +42,7 @@ task :release => :build do
   cache_control = "public,max-age=31536000"
   TARGETS.each do |target|
     puts "  * #{target[:os]}-#{target[:arch]}"
-    from = "./dist/#{target[:os]}/#{target[:arch]}/heroku-cli"
+    from = "./dist/#{target[:os]}/#{target[:arch]}/particle-cli"
     to = remote_path(target[:os], target[:arch])
     upload_file(from, to, content_type: 'binary/octet-stream', cache_control: cache_control)
     upload_file(from + '.gz', to + '.gz', content_type: 'binary/octet-stream', content_encoding: 'gzip', cache_control: cache_control)
@@ -54,7 +54,7 @@ task :release => :build do
 end
 
 def build(target)
-  path = "./dist/#{target[:os]}/#{target[:arch]}/heroku-cli"
+  path = "./dist/#{target[:os]}/#{target[:arch]}/particle-cli"
   ldflags = "-X=main.Version=#{VERSION} -X=main.Channel=#{CHANNEL}"
   args = ["-o", "#{path}", "-ldflags", "\"#{ldflags}\""]
   unless target[:os] === 'windows'
@@ -67,15 +67,15 @@ def build(target)
   exit 1 unless ok
   if target[:os] === 'windows'
     # sign executable
-    ok = system "osslsigncode -pkcs12 resources/exe/heroku-codesign-cert.pfx \
+    ok = system "osslsigncode -pkcs12 resources/exe/particle-codesign-cert.pfx \
     -pass '#{ENV['HEROKU_WINDOWS_SIGNING_PASS']}' \
-    -n 'Heroku Toolbelt' \
-    -i https://toolbelt.heroku.com/ \
+    -n 'Particle CLI' \
+    -i https://www.particle.io/ \
     -in #{path} \
     -out #{path} > /dev/null"
     unless ok
       $stderr.puts "Unable to sign Windows binaries, please follow the full release instructions"
-      $stderr.puts "https://github.com/heroku/heroku/blob/master/RELEASE-FULL.md#windows-release"
+      $stderr.puts "https://github.com/monkbroc/particle-cli-ng/blob/master/RELEASE-FULL.md#windows-release"
       exit 2
     end
   end
@@ -91,7 +91,7 @@ def sha_digest(path)
 end
 
 def remote_path(os, arch)
-  "#{CHANNEL}/#{VERSION}/#{os}/#{arch}/heroku-cli"
+  "#{CHANNEL}/#{VERSION}/#{os}/#{arch}/particle-cli"
 end
 
 def remote_url(os, arch)
@@ -110,7 +110,7 @@ def manifest
     @manifest[:builds][target[:os]] ||= {}
     @manifest[:builds][target[:os]][target[:arch]] = {
       url: remote_url(target[:os], target[:arch]),
-      sha1: sha_digest("dist/#{target[:os]}/#{target[:arch]}/heroku-cli")
+      sha1: sha_digest("dist/#{target[:os]}/#{target[:arch]}/particle-cli")
     }
   end
 
