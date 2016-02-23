@@ -5,13 +5,14 @@ Next Gen Particle CLI
 
 **This is not an official tool by Particle. This is in alpha phase**
 
-*The rest of the README has not been updated for Particle yet*
+Overview
+========
 
-The Heroku CLI is used to manage Heroku apps from the command line.
+*The Next Gen Particle CLI is a delicacy consisting of a light Go shell filled with a sweet creamy Node.js core.*
 
-For more about Heroku see <https://www.heroku.com/home>
+The Go shell manages its own Node.js installation. It is able to update itself and the Node plugins. It forwards commands to the Node.js core. Since it is compiled natively for each platform it is easy to install.
 
-To get started see <https://devcenter.heroku.com/start>
+The Node.js core is today's production Particle CLI. It performs all interactions with the Particle cloud.
 
 Overview
 ========

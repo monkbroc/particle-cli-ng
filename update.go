@@ -18,7 +18,7 @@ import (
 	"github.com/monkbroc/particle-cli-ng/gode"
 )
 
-func UpdateCommand(args []string) {
+func runUpdateCommand(args []string) {
 	channel := Channel
 	t := "foreground"
 

@@ -1,3 +1,4 @@
 particle-cli-ng
 dist
 tmp
+.env

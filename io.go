@@ -25,7 +25,6 @@ var ErrLogPath = filepath.Join(AppDir(), "error.log")
 var errLogger = newLogger(ErrLogPath)
 var exitFn = os.Exit
 var debugging = isDebugging()
-var debuggingHeaders = isDebuggingHeaders()
 
 func init() {
 	Stdout = os.Stdout
@@ -172,14 +171,6 @@ func LogIfError(e error) {
 
 func isDebugging() bool {
 	debug := strings.ToUpper(os.Getenv("PARTICLE_DEBUG"))
-	if debug == "TRUE" || debug == "1" {
-		return true
-	}
-	return false
-}
-
-func isDebuggingHeaders() bool {
-	debug := strings.ToUpper(os.Getenv("HEROKU_DEBUG_HEADERS"))
 	if debug == "TRUE" || debug == "1" {
 		return true
 	}

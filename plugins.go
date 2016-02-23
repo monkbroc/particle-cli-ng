@@ -4,11 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"os/exec"
-	"os/signal"
 	"path/filepath"
-	"strconv"
-	"syscall"
 
 	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/dickeyxxx/golock"
 	"github.com/monkbroc/particle-cli-ng/gode"
@@ -18,112 +14,6 @@ import (
 type Plugin struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
-}
-
-// SetupNode sets up node and npm in ~/.heroku
-func SetupNode() {
-	gode.SetRootPath(AppDir())
-	setup, err := gode.IsSetup()
-	PrintError(err, false)
-	if !setup {
-		setupNode()
-	}
-}
-
-func setupNode() {
-	Err("particle-cli: Adding dependencies...")
-	PrintError(gode.Setup(), true)
-	Errln(" done")
-}
-
-func updateNode() {
-	gode.SetRootPath(AppDir())
-	needsUpdate, err := gode.NeedsUpdate()
-	PrintError(err, true)
-	if needsUpdate {
-		setupNode()
-	}
-}
-
-// LoadPlugins loads the topics and commands from the JavaScript plugins into the CLI
-func (cli *Cli) LoadPlugins(plugins map[string]*Plugin) {
-}
-
-func runInPlugin(plugin *Plugin, args []string) {
-	readLockPlugin(plugin.Name)
-	argsJSON, err := json.Marshal(args)
-	if err != nil {
-		panic(err)
-	}
-	title, _ := json.Marshal(processTitle())
-	cwd, _ := os.Getwd()
-	script := fmt.Sprintf(`
-	'use strict';
-	var moduleName = '%s';
-	var moduleVersion = '%s';
-	process.title = %s;
-	process.argv = %s;
-	process.argv.unshift('node');
-	var logPath = %s;
-	var cwd = %s;
-	process.chdir(cwd);
-	process.on('uncaughtException', function (err) {
-		// ignore EPIPE errors (usually from piping to head)
-		if (err.code === "EPIPE") return;
-		console.error(' !   Error in ' + moduleName + ':')
-		console.error(' !   ' + err.message || err);
-		if (err.stack) {
-			var fs = require('fs');
-			var log = function (line) {
-				var d = new Date().toISOString()
-				.replace(/T/, ' ')
-				.replace(/-/g, '/')
-				.replace(/\..+/, '');
-				fs.appendFileSync(logPath, d + ' ' + line + '\n');
-			}
-			log(err.stack);
-			console.error(' !   See ' + logPath + ' for more info.');
-		}
-		process.exit(1);
-	});
-	require(moduleName);`, plugin.Name, plugin.Version, string(title), argsJSON, strconv.Quote(ErrLogPath), strconv.Quote(cwd))
-
-	// swallow sigint since the plugin will handle it
-	swallowSignal(os.Interrupt)
-
-	cmd := gode.RunScript(script)
-	cmd.Stdin = os.Stdin
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	if debugging {
-		cmd = gode.DebugScript(script)
-	}
-	if err := cmd.Run(); err != nil {
-		os.Exit(getExitCode(err))
-	}
-}
-
-func swallowSignal(s os.Signal) {
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, s)
-	go func() {
-		<-c
-	}()
-}
-
-func getExitCode(err error) int {
-	switch e := err.(type) {
-	case nil:
-		return 0
-	case *exec.ExitError:
-		status, ok := e.Sys().(syscall.WaitStatus)
-		if !ok {
-			panic(err)
-		}
-		return status.ExitStatus()
-	default:
-		panic(err)
-	}
 }
 
 // ParsePlugin requires the plugin's node module
@@ -191,19 +81,19 @@ func isPluginSymlinked(plugin string) bool {
 	return fi.Mode()&os.ModeSymlink != 0
 }
 
-// SetupBuiltinPlugins ensures all the builtinPlugins are installed
-func SetupBuiltinPlugins() {
-	pluginNames := difference(BuiltinPlugins, PluginNames())
-	if len(pluginNames) == 0 {
+// ensure all the Javascript plugin are installed
+func SetupPlugins(pluginNames ...string) {
+	newPluginNames := difference(pluginNames, PluginNames())
+	if len(newPluginNames) == 0 {
 		return
 	}
-	Err("particle-cli: Installing core plugins...")
-	if err := installPlugins(pluginNames...); err != nil {
+	Err("particle-cli: Installing plugins...")
+	if err := installPlugins(newPluginNames...); err != nil {
 		// retry once
-		PrintError(gode.RemovePackages(pluginNames...), true)
+		PrintError(gode.RemovePackages(newPluginNames...), true)
 		PrintError(gode.ClearCache(), true)
-		Err("\rparticle-cli: Installing core plugins (retrying)...")
-		ExitIfError(installPlugins(pluginNames...), true)
+		Err("\rparticle-cli: Installing plugins (retrying)...")
+		ExitIfError(installPlugins(newPluginNames...), true)
 	}
 	Errln(" done")
 }

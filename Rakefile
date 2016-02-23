@@ -2,7 +2,7 @@ require 'digest'
 require 'aws-sdk'
 require 'json'
 
-BUCKET_NAME = 'particle-cli'
+BUCKET_NAME = 'particle-cli-ng-alpha'
 
 TARGETS = [
   {os: 'windows', arch: '386'},
@@ -20,7 +20,8 @@ TARGETS = [
 VERSION = `./version`.chomp
 dirty = `git status 2> /dev/null | tail -n1`.chomp != 'nothing to commit, working directory clean'
 CHANNEL = dirty ? 'dirty' : `git rev-parse --abbrev-ref HEAD`.chomp
-CLOUDFRONT_HOST = 'cli-assets.particle.io'
+# CLOUDFRONT_HOST = 'cli-assets.particle.io'
+CLOUDFRONT_HOST = 'particle-cli-ng-alpha.s3-website-us-east-1.amazonaws.com'
 LABEL = "particle-cli/#{VERSION} (#{CHANNEL})"
 REVISION=`git log -n 1 --pretty=format:"%H"`
 
@@ -65,20 +66,20 @@ def build(target)
   vars << "GOARM=#{target[:goarm]}" if target[:goarm]
   ok = system("#{vars.join(' ')} go build #{args.join(' ')}")
   exit 1 unless ok
-  if target[:os] === 'windows'
-    # sign executable
-    ok = system "osslsigncode -pkcs12 resources/exe/particle-codesign-cert.pfx \
-    -pass '#{ENV['HEROKU_WINDOWS_SIGNING_PASS']}' \
-    -n 'Particle CLI' \
-    -i https://www.particle.io/ \
-    -in #{path} \
-    -out #{path} > /dev/null"
-    unless ok
-      $stderr.puts "Unable to sign Windows binaries, please follow the full release instructions"
-      $stderr.puts "https://github.com/monkbroc/particle-cli-ng/blob/master/RELEASE-FULL.md#windows-release"
-      exit 2
-    end
-  end
+  #if target[:os] === 'windows'
+  #  # sign executable
+  #  ok = system "osslsigncode -pkcs12 resources/exe/particle-codesign-cert.pfx \
+  #  -pass '#{ENV['HEROKU_WINDOWS_SIGNING_PASS']}' \
+  #  -n 'Particle CLI' \
+  #  -i https://www.particle.io/ \
+  #  -in #{path} \
+  #  -out #{path} > /dev/null"
+  #  unless ok
+  #    $stderr.puts "Unable to sign Windows binaries, please follow the full release instructions"
+  #    $stderr.puts "https://github.com/monkbroc/particle-cli-ng/blob/master/RELEASE-FULL.md#windows-release"
+  #    exit 2
+  #  end
+  #end
   gzip(path)
 end
 
@@ -118,7 +119,7 @@ def manifest
 end
 
 def s3_client
-  @s3_client ||= Aws::S3::Client.new(region: 'us-west-2', access_key_id: ENV['HEROKU_RELEASE_ACCESS'], secret_access_key: ENV['HEROKU_RELEASE_SECRET'])
+  @s3_client ||= Aws::S3::Client.new(region: 'us-west-2', access_key_id: ENV['PARTICLE_CLI_RELEASE_ACCESS'], secret_access_key: ENV['PARTICLE_CLI_RELEASE_SECRET'])
 end
 
 def upload_file(local, remote, opts={})
