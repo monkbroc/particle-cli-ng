@@ -18,6 +18,8 @@ import (
 	"github.com/monkbroc/particle-cli-ng/gode"
 )
 
+var assetsHost = "dfu55fst9l042.cloudfront.net"
+
 func runUpdateCommand(args []string) {
 	channel := Channel
 	t := "foreground"
@@ -164,7 +166,7 @@ type manifest struct {
 
 func getUpdateManifest(channel string) (*manifest, error) {
 	res, err := goreq.Request{
-		Uri:       "https://particle-cli-ng-alpha.s3-website-us-east-1.amazonaws.com/" + channel + "/manifest.json",
+		Uri:       "https://" + assetsHost + "/" + channel + "/manifest.json",
 		ShowDebug: debugging,
 	}.Do()
 	if err != nil {

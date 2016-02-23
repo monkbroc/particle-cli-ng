@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 'use strict';
 
+let bucket = 'particle-cli-ng-alpha';
+let assetsHost = 'dfu55fst9l042.cloudfront.net';
+
 let crypto = require('crypto');
 let fs     = require('fs');
 let https  = require('https');
 let knox   = require('knox').createClient({
   key:    process.env.PARTICLE_CLI_RELEASE_ACCESS,
   secret: process.env.PARTICLE_CLI_RELEASE_SECRET,
-  bucket: 'particle-cli-ng-alpha',
+  bucket: bucket,
   region: 'us-east-1',
 });
 
@@ -56,7 +59,7 @@ function download (url, path) {
 }
 
 function s3upload (local, remote) {
-  let key = remote.replace('https://particle-cli-ng-alpha.s3-website-us-east-1.amazonaws.com/', '/');
+  let key = remote.replace('https://' + assetsHost, '');
   return new Promise(function (fulfill, reject) {
     knox.putFile(local, key, {
       'x-amz-acl': 'public-read',
@@ -76,7 +79,7 @@ function processTarget(target) {
   .then(()    => sha(path))
   .then((sha) => target.sha = sha)
   .then(function () {
-    target.url = target.url.replace('https://nodejs.org/download/release/', 'https://particle-cli-ng-alpha.s3-website-us-east-1.amazonaws.com/node/');
+    target.url = target.url.replace('https://nodejs.org/download/release/', 'https://' + assetsHost + '/node/');
     return s3upload(path, target.url);
   });
 }
@@ -87,7 +90,7 @@ function processNpm() {
   .then(()    => sha(path))
   .then((sha) => npmSha = sha)
   .then(function () {
-    npmURL = npmURL.replace('https://github.com/npm/npm/archive/', 'https://particle-cli-ng-alpha.s3-website-us-east-1.amazonaws.com/npm/');
+    npmURL = npmURL.replace('https://github.com/npm/npm/archive/', 'https://' + assetsHost + '/npm/');
     return s3upload(path, npmURL);
   });
 }

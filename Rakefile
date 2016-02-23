@@ -20,8 +20,7 @@ TARGETS = [
 VERSION = `./version`.chomp
 dirty = `git status 2> /dev/null | tail -n1`.chomp != 'nothing to commit, working directory clean'
 CHANNEL = dirty ? 'dirty' : `git rev-parse --abbrev-ref HEAD`.chomp
-# CLOUDFRONT_HOST = 'cli-assets.particle.io'
-CLOUDFRONT_HOST = 'particle-cli-ng-alpha.s3-website-us-east-1.amazonaws.com'
+ASSETS_HOST = 'dfu55fst9l042.cloudfront.net'
 LABEL = "particle-cli-ng/#{VERSION} (#{CHANNEL})"
 REVISION=`git log -n 1 --pretty=format:"%H"`
 
@@ -96,7 +95,7 @@ def remote_path(os, arch)
 end
 
 def remote_url(os, arch)
-  "https://#{CLOUDFRONT_HOST}/#{remote_path(os, arch)}"
+  "https://#{ASSETS_HOST}/#{remote_path(os, arch)}"
 end
 
 def manifest
