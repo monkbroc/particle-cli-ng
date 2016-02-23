@@ -1,4 +1,5 @@
 particle-cli-ng
+debug
 dist
 tmp
 .env

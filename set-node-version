@@ -8,7 +8,7 @@ let knox   = require('knox').createClient({
   key:    process.env.PARTICLE_CLI_RELEASE_ACCESS,
   secret: process.env.PARTICLE_CLI_RELEASE_SECRET,
   bucket: 'particle-cli-ng-alpha',
-  region: 'us-west-2',
+  region: 'us-east-1',
 });
 
 // CHANGE THESE ONLY AND RUN SCRIPT
