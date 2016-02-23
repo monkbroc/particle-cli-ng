@@ -18,28 +18,19 @@ import (
 	"github.com/monkbroc/particle-cli-ng/gode"
 )
 
-var updateTopic = &Topic{
-	Name:        "update",
-	Description: "update heroku-cli",
-}
+func UpdateCommand(args []string) {
+	channel := Channel
+	t := "foreground"
 
-var updateCmd = &Command{
-	Topic:       "update",
-	Hidden:      true,
-	Description: "updates heroku-cli",
-	Args:        []Arg{{Name: "channel", Optional: true}},
-	Flags:       []Flag{{Name: "background", Hidden: true}},
-	Run: func(ctx *Context) {
-		channel := ctx.Args.(map[string]string)["channel"]
-		if channel == "" {
-			channel = Channel
-		}
-		t := "foreground"
-		if ctx.Flags["background"] == true {
+	for _, arg := range args[1:] {
+		if arg == "--background" {
 			t = "background"
+		} else {
+			channel = arg
 		}
-		Update(channel, t)
-	},
+	}
+
+	Update(channel, t)
 }
 
 var binPath string

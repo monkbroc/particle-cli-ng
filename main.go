@@ -27,49 +27,9 @@ var cli = &Cli{}
 // BuiltinPlugins are the core plugins that will be autoinstalled
 var BuiltinPlugins = []string{
 	"particle-cli",
-	//"heroku-apps",
-	//"heroku-cli-addons",
-	//"heroku-fork",
-	//"heroku-git",
-	//"heroku-local",
-	//"heroku-pipelines",
-	//"heroku-run",
-	//"heroku-spaces",
-	//"heroku-status",
 }
 
 func init() {
-	cli.Topics = TopicSet{
-		authTopic,
-		commandsTopic,
-		debugTopic,
-		loginTopic,
-		pluginsTopic,
-		twoFactorTopic,
-		twoFactorTopicAlias,
-		updateTopic,
-		whichTopic,
-	}
-	cli.Commands = CommandSet{
-		authLoginCmd,
-		authTokenCmd,
-		commandsListCmd,
-		debugErrlogCmd,
-		loginCmd,
-		pluginsInstallCmd,
-		pluginsLinkCmd,
-		pluginsListCmd,
-		pluginsUninstallCmd,
-		twoFactorCmd,
-		twoFactorCmdAlias,
-		twoFactorDisableCmd,
-		twoFactorDisableCmdAlias,
-		twoFactorGenerateCmd,
-		twoFactorGenerateCmdAlias,
-		updateCmd,
-		whichCmd,
-		whoamiCmd,
-	}
 	rollbar.Platform = "client"
 	rollbar.Token = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 	rollbar.Environment = Channel
@@ -85,14 +45,6 @@ func main() {
 	err := cli.Run(os.Args)
 	SetupBuiltinPlugins()
 	TriggerBackgroundUpdate()
-	if err == ErrHelp {
-		// Command wasn't found so load the plugins and try again
-		cli.LoadPlugins(GetPlugins())
-		err = cli.Run(os.Args)
-	}
-	if err == ErrHelp {
-		help()
-	}
 	if err != nil {
 		PrintError(err, false)
 		os.Exit(2)
