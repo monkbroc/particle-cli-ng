@@ -103,7 +103,7 @@ func updateCLI(channel string) {
 		golock.Unlock(updateLockPath)
 	}
 	defer unlock()
-	Errf("Updating Heroku v4 CLI to %s (%s)... ", manifest.Version, manifest.Channel)
+	Errf("Updating Particle CLI to %s (%s)... ", manifest.Version, manifest.Channel)
 	build := manifest.Builds[runtime.GOOS][runtime.GOARCH]
 	// on windows we can't remove an existing file or remove the running binary
 	// so we download the file to binName.new
@@ -164,7 +164,7 @@ type manifest struct {
 
 func getUpdateManifest(channel string) (*manifest, error) {
 	res, err := goreq.Request{
-		Uri:       "https://cli-assets.heroku.com/" + channel + "/manifest.json",
+		Uri:       "https://particle-cli-ng-alpha.s3-website-us-east-1.amazonaws.com/" + channel + "/manifest.json",
 		ShowDebug: debugging,
 	}.Do()
 	if err != nil {

@@ -87,12 +87,12 @@ func SetupPlugins(pluginNames ...string) {
 	if len(newPluginNames) == 0 {
 		return
 	}
-	Err("particle-cli: Installing plugins...")
+	Err("particle-cli-ng: Installing plugins...")
 	if err := installPlugins(newPluginNames...); err != nil {
 		// retry once
 		PrintError(gode.RemovePackages(newPluginNames...), true)
 		PrintError(gode.ClearCache(), true)
-		Err("\rparticle-cli: Installing plugins (retrying)...")
+		Err("\rparticle-cli-ng: Installing plugins (retrying)...")
 		ExitIfError(installPlugins(newPluginNames...), true)
 	}
 	Errln(" done")

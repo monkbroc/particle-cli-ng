@@ -73,7 +73,7 @@ func rollbarFields() []*rollbar.Field {
 	}
 }
 
-// ShowDebugInfo prints debugging information if HEROKU_DEBUG=1
+// ShowDebugInfo prints debugging information if PARTICLE_DEBUG=1
 func ShowDebugInfo() {
 	if !isDebugging() {
 		return

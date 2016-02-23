@@ -22,10 +22,10 @@ dirty = `git status 2> /dev/null | tail -n1`.chomp != 'nothing to commit, workin
 CHANNEL = dirty ? 'dirty' : `git rev-parse --abbrev-ref HEAD`.chomp
 # CLOUDFRONT_HOST = 'cli-assets.particle.io'
 CLOUDFRONT_HOST = 'particle-cli-ng-alpha.s3-website-us-east-1.amazonaws.com'
-LABEL = "particle-cli/#{VERSION} (#{CHANNEL})"
+LABEL = "particle-cli-ng/#{VERSION} (#{CHANNEL})"
 REVISION=`git log -n 1 --pretty=format:"%H"`
 
-desc "build particle-cli"
+desc "build particle-cli-ng"
 task :build do
   puts "Building #{LABEL}..."
   FileUtils.mkdir_p 'dist'
@@ -35,7 +35,7 @@ task :build do
   end
 end
 
-desc "release particle-cli"
+desc "release particle-cli-ng"
 task :release => :build do
   abort 'branch is dirty' if CHANNEL == 'dirty'
   abort "#{CHANNEL} not a channel branch (dev/beta/master)" unless %w(dev beta master).include?(CHANNEL)
@@ -43,7 +43,7 @@ task :release => :build do
   cache_control = "public,max-age=31536000"
   TARGETS.each do |target|
     puts "  * #{target[:os]}-#{target[:arch]}"
-    from = "./dist/#{target[:os]}/#{target[:arch]}/particle-cli"
+    from = "./dist/#{target[:os]}/#{target[:arch]}/particle-cli-ng"
     to = remote_path(target[:os], target[:arch])
     upload_file(from, to, content_type: 'binary/octet-stream', cache_control: cache_control)
     upload_file(from + '.gz', to + '.gz', content_type: 'binary/octet-stream', content_encoding: 'gzip', cache_control: cache_control)
@@ -55,7 +55,7 @@ task :release => :build do
 end
 
 def build(target)
-  path = "./dist/#{target[:os]}/#{target[:arch]}/particle-cli"
+  path = "./dist/#{target[:os]}/#{target[:arch]}/particle-cli-ng"
   ldflags = "-X=main.Version=#{VERSION} -X=main.Channel=#{CHANNEL}"
   args = ["-o", "#{path}", "-ldflags", "\"#{ldflags}\""]
   unless target[:os] === 'windows'
@@ -92,7 +92,7 @@ def sha_digest(path)
 end
 
 def remote_path(os, arch)
-  "#{CHANNEL}/#{VERSION}/#{os}/#{arch}/particle-cli"
+  "#{CHANNEL}/#{VERSION}/#{os}/#{arch}/particle-cli-ng"
 end
 
 def remote_url(os, arch)
@@ -111,7 +111,7 @@ def manifest
     @manifest[:builds][target[:os]] ||= {}
     @manifest[:builds][target[:os]][target[:arch]] = {
       url: remote_url(target[:os], target[:arch]),
-      sha1: sha_digest("dist/#{target[:os]}/#{target[:arch]}/particle-cli")
+      sha1: sha_digest("dist/#{target[:os]}/#{target[:arch]}/particle-cli-ng")
     }
   end
 

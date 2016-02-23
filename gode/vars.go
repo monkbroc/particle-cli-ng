@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-const registry = "https://cli-npm.heroku.com"
+const registry = "https://registry.npmjs.org"
 
 var rootPath string
 var lockPath string
@@ -21,9 +21,9 @@ func SetRootPath(root string) {
 	rootPath = root
 	base := filepath.Join(root, getLatestInstalledNode())
 	nodePath = nodePathFromBase(base)
-	herokuNodePath := os.Getenv("HEROKU_NODE_PATH")
-	if herokuNodePath != "" {
-		nodePath = herokuNodePath
+	envNodePath := os.Getenv("PARTICLE_NODE_PATH")
+	if envNodePath != "" {
+		nodePath = envNodePath
 	}
 	npmPath = npmPathFromBase(base)
 	lockPath = filepath.Join(rootPath, "node.lock")

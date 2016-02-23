@@ -8,7 +8,7 @@ import (
 
 var pluginCachePath = filepath.Join(AppDir(), "plugin-cache.json")
 
-// AddPluginsToCache adds/updates a set of plugins to ~/.heroku/plugin-cache.json
+// AddPluginsToCache adds/updates a set of plugins to ~/.particle/plugin-cache.json
 func AddPluginsToCache(plugins ...*Plugin) {
 	cache := FetchPluginCache()
 	for _, plugin := range plugins {

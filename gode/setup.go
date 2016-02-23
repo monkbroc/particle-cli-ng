@@ -37,7 +37,7 @@ func Setup() error {
 	t := findTarget()
 	if t == nil {
 		return errors.New(`node does not offer a prebuilt binary for your OS.
-You'll need to compile the tarball from nodejs.org and place it in ~/.heroku/node-v` + Version)
+You'll need to compile the tarball from nodejs.org and place it in ~/.particle/node-v` + Version)
 	}
 	exists, err := t.isSetup()
 	if err != nil {

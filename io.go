@@ -82,25 +82,25 @@ func Println(a ...interface{}) {
 }
 
 // Log is used to print debugging information
-// It will be added to the logfile in ~/.heroku or printed out if HEROKU_DEBUG is set.
+// It will be added to the logfile in ~/.particle or printed out if PARTICLE_DEBUG is set.
 func Log(a ...interface{}) {
 	errLogger.Print(vtclean.Clean(fmt.Sprint(a...), false))
 }
 
 // Logln is used to print debugging information
-// It will be added to the logfile in ~/.heroku
+// It will be added to the logfile in ~/.particle
 func Logln(a ...interface{}) {
 	Log(fmt.Sprintln(a...))
 }
 
 // Logf is used to print debugging information
-// It will be added to the logfile in ~/.heroku
+// It will be added to the logfile in ~/.particle
 func Logf(format string, a ...interface{}) {
 	Log(fmt.Sprintf(format, a...))
 }
 
 // Debugln is used to print debugging information
-// It will be added to the logfile in ~/.heroku and stderr if HEROKU_DEBUG is set.
+// It will be added to the logfile in ~/.particle and stderr if PARTICLE_DEBUG is set.
 func Debugln(a ...interface{}) {
 	Logln(a...)
 	if debugging {
@@ -109,7 +109,7 @@ func Debugln(a ...interface{}) {
 }
 
 // Debugf is used to print debugging information
-// It will be added to the logfile in ~/.heroku and stderr if HEROKU_DEBUG is set.
+// It will be added to the logfile in ~/.particle and stderr if PARTICLE_DEBUG is set.
 func Debugf(f string, a ...interface{}) {
 	Logf(f, a...)
 	if debugging {

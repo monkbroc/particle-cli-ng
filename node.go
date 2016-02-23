@@ -15,7 +15,7 @@ func SetupNode() {
 }
 
 func setupNode() {
-	Err("particle-cli: Adding dependencies...")
+	Err("particle-cli-ng: Adding dependencies...")
 	PrintError(gode.Setup(), true)
 	Errln(" done")
 }
