@@ -13,7 +13,7 @@ import (
 	"github.com/monkbroc/particle-cli-ng/Godeps/_workspace/src/github.com/stvp/rollbar"
 )
 
-// Version is the version of the v4 cli.
+// Version is the version of the CLI.
 // This is set by a build flag in the `Rakefile`.
 // If it is set to `dev` it will not autoupdate.
 var Version = "dev"
@@ -26,6 +26,7 @@ var cli = &Cli{}
 
 // BuiltinPlugins are the core plugins that will be autoinstalled
 var BuiltinPlugins = []string{
+	"particle-cli",
 	//"heroku-apps",
 	//"heroku-cli-addons",
 	//"heroku-fork",
@@ -47,7 +48,6 @@ func init() {
 		twoFactorTopic,
 		twoFactorTopicAlias,
 		updateTopic,
-		versionTopic,
 		whichTopic,
 	}
 	cli.Commands = CommandSet{
@@ -67,7 +67,6 @@ func init() {
 		twoFactorGenerateCmd,
 		twoFactorGenerateCmdAlias,
 		updateCmd,
-		versionCmd,
 		whichCmd,
 		whoamiCmd,
 	}

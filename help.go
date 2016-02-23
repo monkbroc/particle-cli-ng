@@ -14,14 +14,14 @@ func help() {
 	topic, command := cli.ParseCmd(cmd)
 	switch {
 	case topic == nil:
-		Print("heroku is the CLI for managing apps hosted on heroku.com\n\n")
-		Printf("Usage: heroku COMMAND [--app APP] [command-specific-options]\n\n")
-		Printf("Help topics, type \"heroku help TOPIC\" for more details:\n\n")
+		Printf("**THIS IS A PROOF-OF-CONCEPT TOOL NOT AUTHORED BY PARTICLE.IO**\n\n")
+		Printf("Usage: particle <command_name> <arguments>\n\n")
+		Printf("Help topics, type \"particle help <command_name>\" for more details:\n\n")
 		for _, topic := range nonHiddenTopics(cli.Topics) {
-			Printf("  heroku %-30s# %s\n", topic.Name, topic.Description)
+			Printf("  particle %-30s# %s\n", topic.Name, topic.Description)
 		}
 	case command == nil:
-		Printf("Usage: heroku %s:COMMAND [--app APP] [command-specific-options]\n\n", topic.Name)
+		Printf("Usage: particle %s:COMMAND [--app APP] [command-specific-options]\n\n", topic.Name)
 		printTopicCommandsHelp(topic)
 	case command.Command == "":
 		printCommandHelp(command)
@@ -39,15 +39,15 @@ func help() {
 func printTopicCommandsHelp(topic *Topic) {
 	commands := topic.Commands()
 	if len(commands) > 0 {
-		Printf("\nCommands for %s, type \"heroku help %s:COMMAND\" for more details:\n\n", topic.Name, topic.Name)
+		Printf("\nCommands for %s, type \"particle help %s:COMMAND\" for more details:\n\n", topic.Name, topic.Name)
 		for _, command := range nonHiddenCommands(commands) {
-			Printf(" heroku %-30s # %s\n", command.Usage, command.Description)
+			Printf(" particle %-30s # %s\n", command.Usage, command.Description)
 		}
 	}
 }
 
 func printCommandHelp(command *Command) {
-	Printf("Usage: heroku %s\n\n", command.Usage)
+	Printf("Usage: particle %s\n\n", command.Usage)
 	Println(command.buildFullHelp())
 }
 

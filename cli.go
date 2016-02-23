@@ -25,6 +25,14 @@ type Cli struct {
 // Run parses command line arguments and runs the associated command or help.
 // Also does lookups for app name and/or auth token if the command needs it.
 func (cli *Cli) Run(args []string) (err error) {
+	// JV: always run the core module
+	for _, plugin := range GetPlugins() {
+		runInPlugin(plugin, args)
+		return nil
+	}
+
+	// JV: below is unused
+
 	ctx := &Context{}
 	if len(args) < 2 {
 		return ErrHelp
@@ -79,9 +87,6 @@ func (cli *Cli) Run(args []string) (err error) {
 
 // ParseCmd parses the command argument into a topic and command
 func (cli *Cli) ParseCmd(cmd string) (topic *Topic, command *Command) {
-	if strings.ToLower(cmd) == "--version" || strings.ToLower(cmd) == "-v" {
-		return versionTopic, versionCmd
-	}
 	tc := strings.SplitN(cmd, ":", 2)
 	topic = cli.Topics.ByName(tc[0])
 	if topic == nil {
@@ -274,5 +279,5 @@ func populateFlagsFromEnvVars(flagDefinitons []Flag, flags map[string]interface{
 }
 
 func processTitle(ctx *Context) string {
-	return "heroku " + strings.Join(os.Args[1:], " ")
+	return "particle " + strings.Join(os.Args[1:], " ")
 }
