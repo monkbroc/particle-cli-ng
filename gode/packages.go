@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 )
 
 // Package represents an npm package.
@@ -120,12 +121,31 @@ func execNpm(args ...string) (string, string, error) {
 }
 
 func environ() []string {
-	env := append(os.Environ(), "NPM_CONFIG_ALWAYS_AUTH=false")
+	env, path := environPath()
+	env = append(env, "PATH="+prependPathToList(filepath.Dir(nodePath), path))
+	env = append(env, "NPM_CONFIG_ALWAYS_AUTH=false")
 	env = append(env, "NPM_CONFIG_CACHE="+filepath.Join(rootPath, ".npm-cache"))
 	env = append(env, "NPM_CONFIG_REGISTRY="+registry)
 	env = append(env, "NPM_CONFIG_GLOBAL=false")
 	env = append(env, "NPM_CONFIG_ONLOAD_SCRIPT=false")
 	return env
+}
+
+func environPath() ([]string, string) {
+	env := os.Environ()
+	for i, e := range env {
+		pair := strings.Split(e, "=")
+		if strings.ToUpper(pair[0]) == "PATH" {
+			path := pair[1]
+			rest := append(env[:i], env[i+1:]...)
+			return rest, path
+		}
+	}
+	return env, ""
+}
+
+func prependPathToList(newPath string, pathList string) string {
+	return newPath + string(os.PathListSeparator) + pathList
 }
 
 func debugging() bool {
