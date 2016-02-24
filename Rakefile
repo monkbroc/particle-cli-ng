@@ -55,6 +55,7 @@ end
 
 def build(target)
   path = "./dist/#{target[:os]}/#{target[:arch]}/particle-cli-ng"
+  path += ".exe" if target[:os] === 'windows'
   ldflags = "-X=main.Version=#{VERSION} -X=main.Channel=#{CHANNEL}"
   args = ["-o", "#{path}", "-ldflags", "\"#{ldflags}\""]
   unless target[:os] === 'windows'
@@ -91,7 +92,8 @@ def sha_digest(path)
 end
 
 def remote_path(os, arch)
-  "#{CHANNEL}/#{VERSION}/#{os}/#{arch}/particle-cli-ng"
+  ext = ".exe" if os === 'windows'
+  "#{CHANNEL}/#{VERSION}/#{os}/#{arch}/particle-cli-ng#{ext}"
 end
 
 def remote_url(os, arch)
