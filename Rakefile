@@ -45,7 +45,7 @@ task :release => :build do
     from = "./dist/#{target[:os]}/#{target[:arch]}/particle-cli-ng"
     to = remote_path(target[:os], target[:arch])
     upload_file(from, to, content_type: 'binary/octet-stream', cache_control: cache_control)
-    upload_file(from + '.gz', to + '.gz', content_type: 'binary/octet-stream', content_encoding: 'gzip', cache_control: cache_control)
+    upload_file(from + '.gz', to + '.gz', content_type: 'binary/octet-stream', cache_control: cache_control)
     upload(from, to + ".sha1", content_type: 'text/plain', cache_control: cache_control)
   end
   upload_manifest()
