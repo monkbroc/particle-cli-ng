@@ -1,9 +1,12 @@
 Next Gen Particle CLI
 ==========
 
-*This is not an official tool by Particle. This is in alpha phase.*
+*This is not an official tool by Particle. This is an experimental tool.*
 
 [Based on the Heroku CLI](https://github.com/heroku/heroku-cli)
+
+# [Installer website](
+https://dfu55fst9l042.cloudfront.net/index.html)
 
 Overview
 ========
