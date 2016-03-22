@@ -5,8 +5,7 @@ Next Gen Particle CLI
 
 [Based on the Heroku CLI](https://github.com/heroku/heroku-cli)
 
-# [Installer website](
-https://dfu55fst9l042.cloudfront.net/index.html)
+# [Installer website](https://dfu55fst9l042.cloudfront.net/index.html)
 
 Overview
 ========
